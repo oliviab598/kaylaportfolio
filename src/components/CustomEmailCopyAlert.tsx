@@ -16,7 +16,7 @@ const CustomEmailCopyAlert: React.FC = () => {
       <a
         href="mailto:realroxyphantom@gmail.com"
         className="social-icon"
-        style={{ fontSize: "2rem" }}
+        style={{ fontSize: "1.5rem" }}
         onClick={handleEmailClick}
       >
         <FaEnvelope />

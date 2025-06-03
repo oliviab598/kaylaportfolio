@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaSpotify, FaBandcamp, FaSoundcloud } from "react-icons/fa";
 import CustomEmailCopyAlert from "./CustomEmailCopyAlert";
@@ -16,6 +17,8 @@ const linkStyle: React.CSSProperties = {
 };
 
 const HomePage: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <motion.header
@@ -66,7 +69,7 @@ const HomePage: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="social-icon"
-            style={{ fontSize: "2rem" }}
+            style={{ fontSize: "1.5rem" }}
           >
             <FaSpotify />
           </a>
@@ -75,7 +78,7 @@ const HomePage: React.FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="social-icon"
-            style={{ fontSize: "2rem" }}
+            style={{ fontSize: "1.5rem" }}
           >
             <FaBandcamp />
           </a>
@@ -107,34 +110,81 @@ const HomePage: React.FC = () => {
           <div
             style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
           >
-            <a href="#roomexe" style={linkStyle}>
-              room.exe
-            </a>
-            <a
-              href="#toughtotalk"
-              style={{ ...linkStyle, whiteSpace: "nowrap" }}
-            >
-              tough to talk
-            </a>
-            <a href="#somuch" style={{ ...linkStyle, whiteSpace: "nowrap" }}>
-              so much
-            </a>
-            <a
-              href="#collabs"
+            <button
+              onClick={() => navigate("/room-exe")}
               style={{
                 ...linkStyle,
-                fontWeight: "bold",
+                background: "none",
+                border: "none",
+                padding: 0,
+                fontSize: "1.2rem",
+                cursor: "pointer",
+                color: "#fe9adf",
+              }}
+            >
+              room.exe
+            </button>
+
+            <button
+              onClick={() => navigate("/tough-to-talk")}
+              style={{
+                ...linkStyle,
+                background: "none",
+                border: "none",
+                padding: 0,
+                fontSize: "1.2rem",
+                cursor: "pointer",
+                color: "#fe9adf",
                 whiteSpace: "nowrap",
               }}
             >
+              tough to talk
+            </button>
+            <button
+              onClick={() => navigate("/so-much")}
+              style={{
+                ...linkStyle,
+                background: "none",
+                border: "none",
+                padding: 0,
+                fontSize: "1.2rem",
+                cursor: "pointer",
+                color: "#fe9adf",
+                whiteSpace: "nowrap",
+              }}
+            >
+              so much
+            </button>
+            <button
+              onClick={() => navigate("/collabs")}
+              style={{
+                ...linkStyle,
+                background: "none",
+                border: "none",
+                padding: 0,
+                fontSize: "1.2rem",
+                cursor: "pointer",
+                color: "#fe9adf",
+                fontWeight: "bold",
+              }}
+            >
               collabs
-            </a>
-            <a
-              href="#sheonlywantmeformycosine"
-              style={{ ...linkStyle, whiteSpace: "nowrap" }}
+            </button>
+            <button
+              onClick={() => navigate("/she-only")}
+              style={{
+                ...linkStyle,
+                background: "none",
+                border: "none",
+                padding: 0,
+                fontSize: "1.2rem",
+                cursor: "pointer",
+                color: "#fe9adf",
+                whiteSpace: "nowrap",
+              }}
             >
               she only want me for my cosine
-            </a>
+            </button>
           </div>
         </motion.nav>
       </div>
