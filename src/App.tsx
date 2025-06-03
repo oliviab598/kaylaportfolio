@@ -4,7 +4,7 @@ import EnterPage from "./components/EnterPage";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/kaylaportfolio">
       <Routes>
         <Route path="/" element={<EnterPage />} />
         <Route path="/home" element={<HomePage />} />
