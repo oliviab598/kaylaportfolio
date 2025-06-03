@@ -1,0 +1,70 @@
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  overflow: auto;
+  color: black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+}
+
+.learn-more-button {
+  padding: 0.5em 1.2em;
+  border: 2px solid #fe9adf;
+  color: #fe9adf;
+  background-color: transparent;
+  border-radius: 50px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.learn-more-button:hover {
+  background-color: rgba(247, 194, 215, 0.1);
+}
+
+nav a,
+nav button {
+  display: block;
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: #fe9adf;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  padding: 0;
+  text-align: left;
+}
+
+nav a:hover,
+nav button:hover {
+  transform: translateX(5px);
+  color: #fe9adf;
+}
+
+nav button.collabs-link {
+  font-weight: bold;
+}
+
+nav button:focus {
+  outline: none;
+}
