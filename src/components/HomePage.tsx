@@ -120,12 +120,6 @@ const HomePage: React.FC = () => {
               so much
             </a>
             <a
-              href="#sheonlywantmeformycosine"
-              style={{ ...linkStyle, whiteSpace: "nowrap" }}
-            >
-              she only want me for my cosine
-            </a>
-            <a
               href="#collabs"
               style={{
                 ...linkStyle,
@@ -134,6 +128,12 @@ const HomePage: React.FC = () => {
               }}
             >
               collabs
+            </a>
+            <a
+              href="#sheonlywantmeformycosine"
+              style={{ ...linkStyle, whiteSpace: "nowrap" }}
+            >
+              she only want me for my cosine
             </a>
           </div>
         </motion.nav>
