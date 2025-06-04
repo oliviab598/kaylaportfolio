@@ -12,7 +12,7 @@ const CollabsPage = () => {
       gsap.fromTo(
         containerRef.current,
         { opacity: 0 },
-        { opacity: 1, duration: 3, ease: "expo.in" }
+        { opacity: 1, duration: 1, ease: "expo.in" }
       );
     }
   }, []);
@@ -43,7 +43,7 @@ const CollabsPage = () => {
       >
         <button
           onClick={() => navigate("/home")}
-          className="back2-button"
+          className="back3-button"
           style={{ margin: "0.5rem" }}
         >
           back
