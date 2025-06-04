@@ -94,8 +94,7 @@ nav button:focus {
 }
 
 .back-button:hover {
-  transform: translateX(5px);
-  opacity: 1;
+  opacity: 0.9;
 }
 
 .back-button:hover::after {
@@ -131,7 +130,6 @@ nav button:focus {
 }
 
 .back2-button:hover {
-  transform: translateX(5px);
   opacity: 1;
 }
 
@@ -141,4 +139,20 @@ nav button:focus {
 
 .back2-button:focus {
   outline: none;
+}
+.collabs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  width: 75%;
+  margin: 0 auto;
+  gap: 4em;
+}
+
+.collabs-grid iframe {
+  justify-self: center;
+  border: 0;
+  width: 21.875rem;
+  height: 29.375rem;
+  margin: 4rem;
 }

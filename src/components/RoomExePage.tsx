@@ -1,5 +1,6 @@
-import { useRef, useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { gsap } from "gsap";
 import "../App.css";
 
 const RoomExePage = () => {
@@ -13,6 +14,14 @@ const RoomExePage = () => {
 
     document.body.style.backgroundColor = "black";
     document.documentElement.style.backgroundColor = "black";
+
+    if (containerRef.current) {
+      gsap.fromTo(
+        containerRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 2, ease: "power1.inOut" }
+      );
+    }
 
     return () => {
       document.body.style.backgroundColor = originalBodyBackground;
