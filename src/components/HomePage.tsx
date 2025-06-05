@@ -86,6 +86,8 @@ const HomePage: React.FC = () => {
       ].map((file, index) => (
         <audio
           key={file}
+          preload="auto"
+          controls={false}
           ref={(el) => {
             if (el) audioRefs.current[index] = el;
           }}
@@ -238,21 +240,6 @@ const HomePage: React.FC = () => {
                 so much
               </button>
               <button
-                onClick={() => handleNavigate("/collabs", 3)}
-                style={{
-                  ...linkStyle,
-                  background: "none",
-                  border: "none",
-                  padding: 0,
-                  fontSize: "1.2rem",
-                  cursor: "pointer",
-                  color: "#fe9adf",
-                  fontWeight: "bold",
-                }}
-              >
-                collabs
-              </button>
-              <button
                 onClick={() => handleNavigate("/she-only", 4)}
                 style={{
                   ...linkStyle,
@@ -266,6 +253,21 @@ const HomePage: React.FC = () => {
                 }}
               >
                 she only want me for my cosine
+              </button>
+              <button
+                onClick={() => handleNavigate("/collabs", 3)}
+                style={{
+                  ...linkStyle,
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  fontSize: "1.2rem",
+                  cursor: "pointer",
+                  color: "#fe9adf",
+                  fontWeight: "bold",
+                }}
+              >
+                collabs
               </button>
             </div>
           </motion.nav>

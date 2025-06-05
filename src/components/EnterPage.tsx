@@ -86,9 +86,6 @@ const LogoIntro = () => {
       >
         <div
           style={{
-            border: "0.08em solid #000",
-            borderRadius: "9999px",
-            padding: "0.4rem 1rem",
             display: "flex",
             alignItems: "center",
           }}

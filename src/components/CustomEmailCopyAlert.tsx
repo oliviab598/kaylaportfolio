@@ -16,6 +16,7 @@ const CustomEmailCopyAlert: React.FC<{ audio?: HTMLAudioElement }> = ({
 
     navigator.clipboard.writeText("realroxyphantom@gmail.com");
     setShowAlert(true);
+
     setTimeout(() => setShowAlert(false), 2000);
   };
 
