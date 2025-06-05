@@ -1,37 +1,184 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { gsap } from "gsap";
 import "../App.css";
 
 const SheOnlyPage = () => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  const wuzzRef = useRef<HTMLVideoElement | null>(null);
+  const tuzzzRef = useRef<HTMLVideoElement | null>(null);
+  const thruzRef = useRef<HTMLVideoElement | null>(null);
+
+  const [isMuted, setIsMuted] = useState(false);
+
+  const randomOffset = (min: number, max: number) =>
+    Math.random() * (max - min) + min;
+
+  const randomInterval = (min: number, max: number) =>
+    Math.random() * (max - min) + min;
+
   useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    // Mute all videos initially
+    [wuzzRef.current, tuzzzRef.current, thruzRef.current].forEach((video) => {
+      if (video) video.muted = true;
+    });
+
+    // Start audio playback
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch((err) => {
         console.warn("Audio playback failed:", err);
       });
     }
+
+    const videos = [wuzzRef.current, tuzzzRef.current, thruzRef.current];
+    const intervals: number[] = [];
+
+    videos.forEach((video) => {
+      if (video) {
+        video.defaultMuted = true;
+        video.muted = true;
+        video.volume = 0;
+      }
+    });
+    const moveVideoSmoothlyWithTail = (video: HTMLVideoElement | null) => {
+      if (!video) return;
+
+      const ghost = video.cloneNode(true) as HTMLVideoElement;
+      ghost.style.position = "absolute";
+      ghost.style.top = video.style.top;
+      ghost.style.left = video.style.left;
+      ghost.style.opacity = video.style.opacity;
+      ghost.style.pointerEvents = "none";
+      ghost.style.zIndex = "1";
+      ghost.style.filter = "blur(4px)";
+
+      video.parentElement?.appendChild(ghost);
+
+      gsap.to(ghost, {
+        opacity: 0,
+        duration: 2,
+        ease: "power2.out",
+        onComplete: () => {
+          ghost.remove();
+        },
+      });
+
+      const newTop = randomOffset(5, 80);
+      const newLeft = randomOffset(5, 80);
+
+      gsap.to(video, {
+        top: `${newTop}%`,
+        left: `${newLeft}%`,
+        opacity: 0.7,
+        duration: 3,
+        ease: "power2.inOut",
+      });
+    };
+
+    videos.forEach((video) => {
+      const initialDelay = randomOffset(0, 5000);
+      setTimeout(() => {
+        const intervalId = setInterval(() => {
+          moveVideoSmoothlyWithTail(video);
+        }, randomInterval(10000, 15000));
+        intervals.push(intervalId);
+      }, initialDelay);
+    });
+
+    videos.forEach((video) => {
+      if (video) {
+        const top = randomOffset(5, 80);
+        const left = randomOffset(5, 80);
+        video.style.top = `${top}%`;
+        video.style.left = `${left}%`;
+        gsap.fromTo(
+          video,
+          { opacity: 0 },
+          { opacity: 0.7, duration: 8, ease: "power2.out" }
+        );
+      }
+    });
+
+    return () => {
+      intervals.forEach(clearInterval);
+      document.body.style.overflow = "";
+
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+
+      [wuzzRef.current, tuzzzRef.current, thruzRef.current].forEach((video) => {
+        if (video) {
+          video.pause();
+          video.currentTime = 0;
+        }
+      });
+    };
   }, []);
 
-  // Common shadow style
+  const toggleMute = () => {
+    if (audioRef.current) {
+      audioRef.current.muted = !audioRef.current.muted;
+      setIsMuted(audioRef.current.muted);
+    }
+
+    [wuzzRef.current, tuzzzRef.current, thruzRef.current].forEach((video) => {
+      if (video) video.muted = true;
+    });
+  };
+
+  // Back audio ref
+  const backAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  const handleBackClick = () => {
+    if (backAudioRef.current) {
+      backAudioRef.current.currentTime = 0;
+      backAudioRef.current.play().catch((err) => {
+        console.warn("Back audio playback failed:", err);
+      });
+
+      backAudioRef.current.onended = () => {
+        navigate("/home");
+      };
+    } else {
+      navigate("/home");
+    }
+  };
+
   const boxShadowStyle = {
-    boxShadow: "0 4px 15px rgba(0, 0, 0, 0.6)", // dark soft shadow
+    boxShadow: "0 4px 15px rgba(0, 0, 0, 0.6)",
   };
 
   return (
     <div
-      ref={containerRef}
       style={{
-        width: "100%",
-        minHeight: "100vh",
+        width: "100vw",
+        height: "100vh",
         position: "relative",
-        overflowX: "hidden",
-        backgroundColor: "#020002",
+        overflow: "hidden",
       }}
     >
+      <img
+        src="https://pub-f52daa86551a4dc088dc0d4d5bc20387.r2.dev/sheonlywantmeformycosine_ProcessPhoto.png"
+        alt="background"
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "50%",
+          opacity: 0.7,
+          zIndex: 1,
+        }}
+      />
+
+      {/* Primary audio */}
       <audio
         ref={audioRef}
         src="https://pub-f52daa86551a4dc088dc0d4d5bc20387.r2.dev/sheonlywantme.mp3"
@@ -39,31 +186,66 @@ const SheOnlyPage = () => {
         loop
       />
 
-      <div
+      {/* Back button audio (one-shot) */}
+      <audio
+        ref={backAudioRef}
+        src="https://pub-795433b8425843b2b6c357e0fd762384.r2.dev/00003.wav"
+        preload="auto"
+      />
+
+      <video
+        ref={wuzzRef}
+        src="https://pub-f52daa86551a4dc088dc0d4d5bc20387.r2.dev/wuzz.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
         style={{
           position: "absolute",
-          top: "8rem",
-          left: "30%",
-          width: "40%",
-          height: "calc(100% - 5em)",
-          overflow: "hidden",
-          zIndex: 999,
-          pointerEvents: "none",
+          width: "30%",
+          borderRadius: "0.2rem",
+          opacity: 0,
           ...boxShadowStyle,
+          pointerEvents: "none",
+          zIndex: 2,
         }}
-      >
-        <video
-          src="https://pub-f52daa86551a4dc088dc0d4d5bc20387.r2.dev/notepad.mov"
-          autoPlay
-          muted
-          loop
-          playsInline
-          style={{
-            width: "100%",
-            marginTop: "-5em",
-          }}
-        />
-      </div>
+      />
+
+      <video
+        ref={tuzzzRef}
+        src="https://pub-f52daa86551a4dc088dc0d4d5bc20387.r2.dev/tuzzzz.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        style={{
+          position: "absolute",
+          width: "25%",
+          borderRadius: "0.2rem",
+          opacity: 0,
+          ...boxShadowStyle,
+          pointerEvents: "none",
+          zIndex: 2,
+        }}
+      />
+
+      <video
+        ref={thruzRef}
+        src="https://pub-f52daa86551a4dc088dc0d4d5bc20387.r2.dev/THRUZ.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        style={{
+          position: "absolute",
+          width: "28%",
+          borderRadius: "0.2rem",
+          opacity: 0,
+          ...boxShadowStyle,
+          pointerEvents: "none",
+          zIndex: 2,
+        }}
+      />
 
       <div
         style={{
@@ -77,92 +259,32 @@ const SheOnlyPage = () => {
           justifyContent: "flex-start",
         }}
       >
-        <button
-          onClick={() => navigate("/home")}
-          style={{
-            margin: "0.5rem",
-            background: "none",
-            border: "none",
-            color: "#DAAE41",
-            fontSize: "1.2rem",
-            fontWeight: 500,
-            display: "flex",
-            alignItems: "center",
-            gap: "0.3rem",
-            cursor: "pointer",
-            outline: "none",
-          }}
-        >
-          <span
-            style={{
-              display: "inline-block",
-              fontSize: "1.5rem",
-            }}
-          >
-            &lt;
-          </span>
-          Back
+        <button onClick={handleBackClick} className="back2-button">
+          back
         </button>
       </div>
 
       <div
         style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "8rem",
-          marginBottom: "8rem",
-          position: "relative",
+          position: "fixed",
+          bottom: "1rem",
+          left: "1rem",
+          zIndex: 1000,
         }}
       >
-        <img
-          src="https://pub-f52daa86551a4dc088dc0d4d5bc20387.r2.dev/notepad.jpg"
-          alt="Background"
+        <button
+          onClick={toggleMute}
           style={{
-            width: "40%",
-            display: "block",
-            ...boxShadowStyle,
+            background: "none",
+            border: "none",
+            color: "#DAAE41",
+            fontSize: "1rem",
+            cursor: "pointer",
+            outline: "none",
           }}
-        />
-        <img
-          src="https://pub-f52daa86551a4dc088dc0d4d5bc20387.r2.dev/sheonlywantmeformycosine_ProcessPhoto.png"
-          alt="Layered"
-          style={{
-            position: "absolute",
-            bottom: "10rem",
-            left: "38%",
-            transform: "translateX(-50%)",
-            width: "10%",
-            zIndex: 1001,
-            ...boxShadowStyle,
-          }}
-        />
-        <img
-          src="https://pub-f52daa86551a4dc088dc0d4d5bc20387.r2.dev/sheonlywantmeformycosine_ProcessPhoto.png"
-          alt="Layered"
-          style={{
-            position: "absolute",
-            bottom: "10rem",
-            left: "48.5%",
-            transform: "translateX(-50%)",
-            width: "10%",
-            zIndex: 1001,
-            ...boxShadowStyle,
-          }}
-        />
-        <img
-          src="https://pub-f52daa86551a4dc088dc0d4d5bc20387.r2.dev/sheonlywantmeformycosine_ProcessPhoto.png"
-          alt="Layered"
-          style={{
-            position: "absolute",
-            bottom: "10rem",
-            left: "59%",
-            transform: "translateX(-50%)",
-            width: "10%",
-            zIndex: 1001,
-            ...boxShadowStyle,
-          }}
-        />
+        >
+          {isMuted ? "🔇" : "🔈"}
+        </button>
       </div>
     </div>
   );

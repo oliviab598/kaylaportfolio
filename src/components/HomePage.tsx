@@ -20,6 +20,7 @@ const linkStyle: React.CSSProperties = {
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const pageRef = useRef<HTMLDivElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     if (!pageRef.current) return;
@@ -32,6 +33,14 @@ const HomePage: React.FC = () => {
   }, []);
 
   const handleNavigate = (path: string) => {
+    // Play audio file once
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch((err) => {
+        console.warn("Audio playback failed:", err);
+      });
+    }
+
     if (!pageRef.current) {
       navigate(path);
       return;
@@ -49,6 +58,12 @@ const HomePage: React.FC = () => {
 
   return (
     <div ref={pageRef}>
+      {/* Hidden audio element */}
+      <audio
+        ref={audioRef}
+        src="https://pub-795433b8425843b2b6c357e0fd762384.r2.dev/00000.wav"
+      />
+
       <>
         <motion.header
           initial={{ y: -50, opacity: 0 }}

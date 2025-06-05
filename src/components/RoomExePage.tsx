@@ -6,6 +6,10 @@ import "../App.css";
 const RoomExePage = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Exit audio ref
+  const exitAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const originalBodyBackground = document.body.style.backgroundColor;
@@ -23,11 +27,39 @@ const RoomExePage = () => {
       );
     }
 
+    // Play the main audio
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch((err) => {
+        console.warn("Audio playback failed:", err);
+      });
+    }
+
     return () => {
       document.body.style.backgroundColor = originalBodyBackground;
       document.documentElement.style.backgroundColor = originalHtmlBackground;
+
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
     };
   }, []);
+
+  const handleBackClick = () => {
+    if (exitAudioRef.current) {
+      exitAudioRef.current.currentTime = 0;
+      exitAudioRef.current.play().catch((err) => {
+        console.warn("Exit audio playback failed:", err);
+      });
+
+      exitAudioRef.current.onended = () => {
+        navigate("/home");
+      };
+    } else {
+      navigate("/home");
+    }
+  };
 
   return (
     <div
@@ -38,6 +70,21 @@ const RoomExePage = () => {
         position: "relative",
       }}
     >
+      {/* Main audio loop */}
+      <audio
+        ref={audioRef}
+        src="https://pub-37b0272c5a554ccaae30b92ec961dcc9.r2.dev/mainloopPDK.wav"
+        preload="auto"
+        loop
+      />
+
+      {/* Exit audio clip */}
+      <audio
+        ref={exitAudioRef}
+        src="https://pub-795433b8425843b2b6c357e0fd762384.r2.dev/00003.wav"
+        preload="auto"
+      />
+
       <div
         style={{
           position: "fixed",
@@ -51,7 +98,7 @@ const RoomExePage = () => {
         }}
       >
         <button
-          onClick={() => navigate("/home")}
+          onClick={handleBackClick}
           className="back-button"
           style={{ margin: "0.5rem" }}
         >

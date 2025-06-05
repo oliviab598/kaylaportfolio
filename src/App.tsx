@@ -4,7 +4,7 @@ import EnterPage from "./components/EnterPage";
 import RoomExePage from "./components/RoomExePage";
 import CollabsPage from "./components/CollabsPage";
 import SheOnlyPage from "./components/SheOnlyPage";
-import ToughToTalkPage from "./components/TouchToTalkPage";
+import ToughToTalkPage from "./components/ToughToTalkPage";
 import SoMuchPage from "./components/SoMuchPage";
 
 function App() {

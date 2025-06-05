@@ -1,13 +1,23 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../App.css";
 
-const SoMuchPage = () => {
+const ToughToTalkPage = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const navigate = useNavigate();
 
   // Exit audio ref
   const exitAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch((err) => {
+        console.warn("Audio playback failed:", err);
+      });
+    }
+  }, []);
 
   const handleBackClick = () => {
     if (exitAudioRef.current) {
@@ -33,6 +43,13 @@ const SoMuchPage = () => {
         position: "relative",
       }}
     >
+      {/* Main audio */}
+      <audio
+        ref={audioRef}
+        src="https://pub-2b2e0f5de52048d98635f365e2e7ba66.r2.dev/ksc_exquistecorpseRecitalDraft_April16.2025.wav"
+        preload="auto"
+      />
+
       {/* Exit audio */}
       <audio
         ref={exitAudioRef}
@@ -64,4 +81,4 @@ const SoMuchPage = () => {
   );
 };
 
-export default SoMuchPage;
+export default ToughToTalkPage;

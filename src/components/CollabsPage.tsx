@@ -7,6 +7,9 @@ const CollabsPage = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
 
+  // Reference to the audio element
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
   useEffect(() => {
     if (containerRef.current) {
       gsap.fromTo(
@@ -16,6 +19,24 @@ const CollabsPage = () => {
       );
     }
   }, []);
+
+  const handleBackClick = () => {
+    if (audioRef.current) {
+      // Play the audio
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch((err) => {
+        console.warn("Audio playback failed:", err);
+      });
+
+      // Wait for the audio to finish before navigating
+      audioRef.current.onended = () => {
+        navigate("/home");
+      };
+    } else {
+      // If audio is not available, navigate immediately
+      navigate("/home");
+    }
+  };
 
   return (
     <div
@@ -29,6 +50,13 @@ const CollabsPage = () => {
         gap: "2rem",
       }}
     >
+      {/* Audio element (hidden) */}
+      <audio
+        ref={audioRef}
+        src="https://pub-795433b8425843b2b6c357e0fd762384.r2.dev/00003.wav"
+        preload="auto"
+      />
+
       <div
         style={{
           position: "fixed",
@@ -42,14 +70,16 @@ const CollabsPage = () => {
         }}
       >
         <button
-          onClick={() => navigate("/home")}
+          onClick={handleBackClick}
           className="back3-button"
           style={{ margin: "0.5rem" }}
         >
           back
         </button>
       </div>
+
       <div className="collabs-grid">
+        {/* The rest of your iframe content */}
         <iframe
           src="https://bandcamp.com/EmbeddedPlayer/album=1980370646/size=large/bgcol=ffffff/linkcol=f171a2/tracklist=false/track=2115368187"
           seamless
