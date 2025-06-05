@@ -84,7 +84,7 @@ const SheOnlyPage = () => {
 
       gsap.to(video, {
         opacity: 0,
-        duration: 8,
+        duration: 6,
         ease: "power2.in",
         onComplete: () => {
           const newTop = randomOffset(5, 80);
@@ -97,7 +97,7 @@ const SheOnlyPage = () => {
 
           gsap.to(video, {
             opacity: 0.7,
-            duration: 8,
+            duration: 6,
             ease: "power2.out",
           });
         },
@@ -105,7 +105,7 @@ const SheOnlyPage = () => {
     };
 
     videos.forEach((video) => {
-      const initialDelay = randomOffset(0, 5000);
+      const initialDelay = randomOffset(0, 3000);
       setTimeout(() => {
         const intervalId = setInterval(() => {
           if (Math.random() < 0.3) {
@@ -113,7 +113,7 @@ const SheOnlyPage = () => {
           } else {
             moveVideoSmoothlyWithTail(video);
           }
-        }, randomInterval(10000, 15000));
+        }, randomInterval(4000, 10000));
         intervals.push(intervalId);
       }, initialDelay);
     });
@@ -281,7 +281,113 @@ const SheOnlyPage = () => {
         rel="noopener noreferrer"
         style={{
           position: "absolute",
+          top: "20.5%",
+          left: "80%",
+          transform: "translateX(-50%)",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          fontWeight: "bold",
+          fontSize: "1rem",
+          color: "#DAAE41",
+          textDecoration: "underline",
+          opacity: 0.9,
+          zIndex: 1001,
+        }}
+      >
+        schedule an appointment
+      </a>
+      <a
+        href="https://drive.google.com/file/d/1CrsqLAyYMHiDvIEXg3P2MoUphd-U4j__/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: "absolute",
+          top: "21%",
+          left: "80%",
+          transform: "translateX(-50%)",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          fontWeight: "bold",
+          fontSize: "1rem",
+          color: "#DAAE41",
+          textDecoration: "underline",
+          opacity: 0.9,
+          zIndex: 1001,
+        }}
+      >
+        schedule an appointment
+      </a>
+      <a
+        href="https://drive.google.com/file/d/1CrsqLAyYMHiDvIEXg3P2MoUphd-U4j__/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: "absolute",
           top: "22%",
+          left: "80%",
+          transform: "translateX(-50%)",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          fontWeight: "bold",
+          fontSize: "1rem",
+          color: "#DAAE41",
+          textDecoration: "underline",
+          opacity: 0.9,
+          zIndex: 1001,
+        }}
+      >
+        schedule an appointment
+      </a>
+      <a
+        href="https://drive.google.com/file/d/1CrsqLAyYMHiDvIEXg3P2MoUphd-U4j__/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: "absolute",
+          top: "23%",
+          left: "80%",
+          transform: "translateX(-50%)",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          fontWeight: "bold",
+          fontSize: "1rem",
+          color: "#DAAE41",
+          textDecoration: "underline",
+          opacity: 0.9,
+          zIndex: 1001,
+        }}
+      >
+        schedule an appointment
+      </a>
+      <a
+        href="https://drive.google.com/file/d/1CrsqLAyYMHiDvIEXg3P2MoUphd-U4j__/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: "absolute",
+          top: "25%",
+          left: "80%",
+          transform: "translateX(-50%)",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          fontWeight: "bold",
+          fontSize: "1rem",
+          color: "#DAAE41",
+          textDecoration: "underline",
+          opacity: 0.9,
+          zIndex: 1001,
+        }}
+      >
+        schedule an appointment
+      </a>
+
+      <a
+        href="https://drive.google.com/file/d/1CrsqLAyYMHiDvIEXg3P2MoUphd-U4j__/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: "absolute",
+          top: "27.5%",
           left: "80%",
           transform: "translateX(-50%)",
           fontFamily:
@@ -430,7 +536,7 @@ const SheOnlyPage = () => {
             background: "none",
             border: "none",
             color: "#DAAE41",
-            fontSize: "1rem",
+            fontSize: "1.5rem",
             cursor: "pointer",
             outline: "none",
           }}

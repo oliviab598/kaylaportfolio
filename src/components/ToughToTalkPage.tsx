@@ -7,7 +7,6 @@ const ToughToTalkPage = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const navigate = useNavigate();
 
-  // Exit audio ref
   const exitAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {

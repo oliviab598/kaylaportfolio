@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import { FaEnvelope } from "react-icons/fa";
 
-const CustomEmailCopyAlert: React.FC = () => {
+const CustomEmailCopyAlert: React.FC<{ audio?: HTMLAudioElement }> = ({
+  audio,
+}) => {
   const [showAlert, setShowAlert] = useState(false);
 
   const handleEmailClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+
+    if (audio) {
+      audio.currentTime = 0;
+      audio.play().catch((err) => console.warn("Audio playback failed:", err));
+    }
+
     navigator.clipboard.writeText("realroxyphantom@gmail.com");
     setShowAlert(true);
     setTimeout(() => setShowAlert(false), 2000);
@@ -25,7 +33,7 @@ const CustomEmailCopyAlert: React.FC = () => {
         <div
           style={{
             position: "absolute",
-            top: "120%", // position below the icon
+            top: "120%",
             left: "50%",
             transform: "translateX(-50%)",
             background: "linear-gradient(135deg, #FEDAF3, #FEC2F3)",
@@ -36,8 +44,8 @@ const CustomEmailCopyAlert: React.FC = () => {
             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
             border: "1px solid rgba(0, 0, 0, 0.1)",
             whiteSpace: "nowrap",
-            fontFamily: "monospace", // monospace font
-            fontWeight: "bold", // subtle emphasis
+            fontFamily: "monospace",
+            fontWeight: "bold",
           }}
         >
           email copied :)

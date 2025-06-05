@@ -20,7 +20,8 @@ const linkStyle: React.CSSProperties = {
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const pageRef = useRef<HTMLDivElement | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const audioRefs = useRef<HTMLAudioElement[]>([]);
 
   useEffect(() => {
     if (!pageRef.current) return;
@@ -32,11 +33,11 @@ const HomePage: React.FC = () => {
     );
   }, []);
 
-  const handleNavigate = (path: string) => {
-    // Play audio file once
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play().catch((err) => {
+  const handleNavigate = (path: string, audioIndex: number) => {
+    const audio = audioRefs.current[audioIndex];
+    if (audio) {
+      audio.currentTime = 0;
+      audio.play().catch((err) => {
         console.warn("Audio playback failed:", err);
       });
     }
@@ -56,13 +57,41 @@ const HomePage: React.FC = () => {
     });
   };
 
+  const playAudioAndOpenLink = (audioIndex: number, url: string) => {
+    const audio = audioRefs.current[audioIndex];
+    if (audio) {
+      audio.currentTime = 0;
+      audio.play().catch((err) => console.warn("Audio playback failed:", err));
+
+      setTimeout(() => {
+        window.open(url, "_blank", "noopener noreferrer");
+      }, 500); // adjust to your preference
+    } else {
+      window.open(url, "_blank", "noopener noreferrer");
+    }
+  };
+
   return (
     <div ref={pageRef}>
-      {/* Hidden audio element */}
-      <audio
-        ref={audioRef}
-        src="https://pub-795433b8425843b2b6c357e0fd762384.r2.dev/00000.wav"
-      />
+      {[
+        "00000.wav",
+        "curiosity-emote.mp3",
+        "00002.mp3",
+        "00004.wav",
+        "amazed-emote.mp3",
+        "something.wav",
+        "new-horizons.mp3",
+        "catch.mp3",
+        "mail.mp3",
+      ].map((file, index) => (
+        <audio
+          key={file}
+          ref={(el) => {
+            if (el) audioRefs.current[index] = el;
+          }}
+          src={`https://pub-795433b8425843b2b6c357e0fd762384.r2.dev/${file}`}
+        />
+      ))}
 
       <>
         <motion.header
@@ -78,7 +107,6 @@ const HomePage: React.FC = () => {
           }}
         >
           <div style={{ flex: 1 }} />
-
           <a
             style={{
               ...linkStyle,
@@ -89,7 +117,6 @@ const HomePage: React.FC = () => {
           >
             kayla shomar-corbett
           </a>
-
           <div
             style={{
               display: "flex",
@@ -100,33 +127,45 @@ const HomePage: React.FC = () => {
             }}
           >
             <a
-              href="https://on.soundcloud.com/4PGX7TAuiJVoS0WQTA"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                playAudioAndOpenLink(
+                  5,
+                  "https://on.soundcloud.com/4PGX7TAuiJVoS0WQTA"
+                );
+              }}
               className="social-icon"
               style={{ fontSize: "2rem" }}
             >
               <FaSoundcloud />
             </a>
             <a
-              href="https://open.spotify.com/artist/4LiQCOQ5wHpFyx5seVwl8G?si=BD_yzws8SpG_xdk0a9VP_A"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                playAudioAndOpenLink(
+                  6,
+                  "https://open.spotify.com/artist/4LiQCOQ5wHpFyx5seVwl8G?si=BD_yzws8SpG_xdk0a9VP_A"
+                );
+              }}
               className="social-icon"
               style={{ fontSize: "1.5rem" }}
             >
               <FaSpotify />
             </a>
             <a
-              href="https://roxyphantom.bandcamp.com/"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                playAudioAndOpenLink(7, "https://roxyphantom.bandcamp.com/");
+              }}
               className="social-icon"
               style={{ fontSize: "1.5rem" }}
             >
               <FaBandcamp />
             </a>
-            <CustomEmailCopyAlert />
+            <CustomEmailCopyAlert audio={audioRefs.current[8]} />
           </div>
         </motion.header>
 
@@ -155,7 +194,7 @@ const HomePage: React.FC = () => {
               style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
             >
               <button
-                onClick={() => handleNavigate("/room-exe")}
+                onClick={() => handleNavigate("/room-exe", 0)}
                 style={{
                   ...linkStyle,
                   background: "none",
@@ -169,7 +208,7 @@ const HomePage: React.FC = () => {
                 room.exe
               </button>
               <button
-                onClick={() => handleNavigate("/tough-to-talk")}
+                onClick={() => handleNavigate("/tough-to-talk", 1)}
                 style={{
                   ...linkStyle,
                   background: "none",
@@ -184,7 +223,7 @@ const HomePage: React.FC = () => {
                 tough to talk
               </button>
               <button
-                onClick={() => handleNavigate("/so-much")}
+                onClick={() => handleNavigate("/so-much", 2)}
                 style={{
                   ...linkStyle,
                   background: "none",
@@ -199,7 +238,7 @@ const HomePage: React.FC = () => {
                 so much
               </button>
               <button
-                onClick={() => handleNavigate("/collabs")}
+                onClick={() => handleNavigate("/collabs", 3)}
                 style={{
                   ...linkStyle,
                   background: "none",
@@ -214,7 +253,7 @@ const HomePage: React.FC = () => {
                 collabs
               </button>
               <button
-                onClick={() => handleNavigate("/she-only")}
+                onClick={() => handleNavigate("/she-only", 4)}
                 style={{
                   ...linkStyle,
                   background: "none",
