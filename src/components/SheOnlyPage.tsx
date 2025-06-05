@@ -22,12 +22,10 @@ const SheOnlyPage = () => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
 
-    // Mute all videos initially
     [wuzzRef.current, tuzzzRef.current, thruzRef.current].forEach((video) => {
       if (video) video.muted = true;
     });
 
-    // Start audio playback
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch((err) => {
@@ -45,6 +43,7 @@ const SheOnlyPage = () => {
         video.volume = 0;
       }
     });
+
     const moveVideoSmoothlyWithTail = (video: HTMLVideoElement | null) => {
       if (!video) return;
 
@@ -80,11 +79,40 @@ const SheOnlyPage = () => {
       });
     };
 
+    const teleportVideo = (video: HTMLVideoElement | null) => {
+      if (!video) return;
+
+      gsap.to(video, {
+        opacity: 0,
+        duration: 8,
+        ease: "power2.in",
+        onComplete: () => {
+          const newTop = randomOffset(5, 80);
+          const newLeft = randomOffset(5, 80);
+
+          gsap.set(video, {
+            top: `${newTop}%`,
+            left: `${newLeft}%`,
+          });
+
+          gsap.to(video, {
+            opacity: 0.7,
+            duration: 8,
+            ease: "power2.out",
+          });
+        },
+      });
+    };
+
     videos.forEach((video) => {
       const initialDelay = randomOffset(0, 5000);
       setTimeout(() => {
         const intervalId = setInterval(() => {
-          moveVideoSmoothlyWithTail(video);
+          if (Math.random() < 0.3) {
+            teleportVideo(video);
+          } else {
+            moveVideoSmoothlyWithTail(video);
+          }
         }, randomInterval(10000, 15000));
         intervals.push(intervalId);
       }, initialDelay);
@@ -133,7 +161,6 @@ const SheOnlyPage = () => {
     });
   };
 
-  // Back audio ref
   const backAudioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleBackClick = () => {
@@ -164,6 +191,133 @@ const SheOnlyPage = () => {
         overflow: "hidden",
       }}
     >
+      <a
+        href="https://drive.google.com/file/d/1CrsqLAyYMHiDvIEXg3P2MoUphd-U4j__/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: "absolute",
+          top: "13%",
+          left: "40%",
+          transform: "translateX(-50%)",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          fontWeight: "bold",
+          fontSize: "1rem",
+          color: "#DAAE41",
+          textDecoration: "underline",
+          opacity: 0.9,
+          zIndex: 1001,
+        }}
+      >
+        schedule an appointment
+      </a>
+      <a
+        href="https://drive.google.com/file/d/1CrsqLAyYMHiDvIEXg3P2MoUphd-U4j__/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: "absolute",
+          top: "82%",
+          left: "20%",
+          transform: "translateX(-50%)",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          fontWeight: "bold",
+          fontSize: "1rem",
+          color: "#DAAE41",
+          textDecoration: "underline",
+          opacity: 0.9,
+          zIndex: 1001,
+        }}
+      >
+        schedule an appointment
+      </a>
+      <a
+        href="https://drive.google.com/file/d/1CrsqLAyYMHiDvIEXg3P2MoUphd-U4j__/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: "absolute",
+          top: "18%",
+          left: "80%",
+          transform: "translateX(-50%)",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          fontWeight: "bold",
+          fontSize: "1rem",
+          color: "#DAAE41",
+          textDecoration: "underline",
+          opacity: 0.9,
+          zIndex: 1001,
+        }}
+      >
+        schedule an appointment
+      </a>
+      <a
+        href="https://drive.google.com/file/d/1CrsqLAyYMHiDvIEXg3P2MoUphd-U4j__/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: "absolute",
+          top: "20%",
+          left: "80%",
+          transform: "translateX(-50%)",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          fontWeight: "bold",
+          fontSize: "1rem",
+          color: "#DAAE41",
+          textDecoration: "underline",
+          opacity: 0.9,
+          zIndex: 1001,
+        }}
+      >
+        schedule an appointment
+      </a>
+      <a
+        href="https://drive.google.com/file/d/1CrsqLAyYMHiDvIEXg3P2MoUphd-U4j__/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: "absolute",
+          top: "22%",
+          left: "80%",
+          transform: "translateX(-50%)",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          fontWeight: "bold",
+          fontSize: "1rem",
+          color: "#DAAE41",
+          textDecoration: "underline",
+          opacity: 0.9,
+          zIndex: 1001,
+        }}
+      >
+        schedule an appointment
+      </a>
+      <a
+        href="https://drive.google.com/file/d/1CrsqLAyYMHiDvIEXg3P2MoUphd-U4j__/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif',
+          fontWeight: "bold",
+          fontSize: "2rem",
+          color: "#DAAE41",
+          textDecoration: "underline",
+          opacity: 0.9,
+          zIndex: 1001,
+        }}
+      >
+        schedule an appointment
+      </a>
+
       <img
         src="https://pub-f52daa86551a4dc088dc0d4d5bc20387.r2.dev/sheonlywantmeformycosine_ProcessPhoto.png"
         alt="background"
@@ -178,7 +332,6 @@ const SheOnlyPage = () => {
         }}
       />
 
-      {/* Primary audio */}
       <audio
         ref={audioRef}
         src="https://pub-f52daa86551a4dc088dc0d4d5bc20387.r2.dev/sheonlywantme.mp3"
@@ -186,7 +339,6 @@ const SheOnlyPage = () => {
         loop
       />
 
-      {/* Back button audio (one-shot) */}
       <audio
         ref={backAudioRef}
         src="https://pub-795433b8425843b2b6c357e0fd762384.r2.dev/00003.wav"

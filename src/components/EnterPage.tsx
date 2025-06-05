@@ -10,7 +10,7 @@ const LogoIntro = () => {
   const [typedText, setTypedText] = useState("");
   const navigate = useNavigate();
 
-  const textToType = "Kayla Shomar-Corbett";
+  const textToType = "kayla shomar-corbett";
   const typingSpeed = 100;
   const pauseTime = 1500;
 
@@ -57,6 +57,7 @@ const LogoIntro = () => {
       navigate("/home");
     }
   };
+
   return (
     <div
       ref={containerRef}
@@ -66,7 +67,6 @@ const LogoIntro = () => {
         left: 0,
         width: "100%",
         height: "100%",
-        backgroundColor: "#fff",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -79,32 +79,45 @@ const LogoIntro = () => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          lineHeight: 1,
           transform: "translateY(2rem)",
+          height: "4rem",
+          overflow: "hidden",
         }}
       >
         <div
           style={{
-            fontSize: "4rem",
-            fontWeight: "bold",
-            color: "#000",
-            fontFamily: "monospace",
+            border: "0.08em solid #000",
+            borderRadius: "9999px",
+            padding: "0.4rem 1rem",
             display: "flex",
             alignItems: "center",
-            height: "4rem",
           }}
         >
-          {typedText}
-          <span
+          <div
             style={{
-              display: "inline-block",
-              width: "0.3rem",
-              height: "3.8rem",
-              backgroundColor: "#000",
-              marginLeft: "0.2rem",
-              animation: "blink 1s step-start 0s infinite",
+              fontSize: "3rem",
+              fontWeight: "400",
+              color: "#000",
+              fontFamily: "monospace",
+              display: "flex",
+              alignItems: "center",
+              whiteSpace: "nowrap",
+              lineHeight: 1,
+              textShadow: "none",
             }}
-          ></span>
+          >
+            {typedText}
+            <span
+              style={{
+                display: "inline-block",
+                width: "0.2rem",
+                height: "1.8rem",
+                backgroundColor: "#000",
+                marginLeft: "0.2rem",
+                animation: "blink 1s step-start 0s infinite",
+              }}
+            ></span>
+          </div>
         </div>
       </div>
 
@@ -112,11 +125,11 @@ const LogoIntro = () => {
         ref={buttonRef}
         className="learn-more-button"
         style={{
-          marginTop: "5rem",
+          marginTop: "4rem",
           outline: "none",
           cursor: "pointer",
           fontSize: "1rem",
-          padding: "0.5rem 1rem",
+          padding: "0.4rem 0.8rem",
         }}
         onClick={handleLearnMore}
       >

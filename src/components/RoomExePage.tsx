@@ -8,7 +8,6 @@ const RoomExePage = () => {
   const navigate = useNavigate();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Exit audio ref
   const exitAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -23,11 +22,10 @@ const RoomExePage = () => {
       gsap.fromTo(
         containerRef.current,
         { opacity: 0 },
-        { opacity: 1, duration: 2, ease: "power1.inOut" }
+        { opacity: 1, duration: 1.8, ease: "power2.inOut" }
       );
     }
 
-    // Play the main audio
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.play().catch((err) => {
@@ -70,7 +68,6 @@ const RoomExePage = () => {
         position: "relative",
       }}
     >
-      {/* Main audio loop */}
       <audio
         ref={audioRef}
         src="https://pub-37b0272c5a554ccaae30b92ec961dcc9.r2.dev/mainloopPDK.wav"
@@ -78,7 +75,6 @@ const RoomExePage = () => {
         loop
       />
 
-      {/* Exit audio clip */}
       <audio
         ref={exitAudioRef}
         src="https://pub-795433b8425843b2b6c357e0fd762384.r2.dev/00003.wav"
