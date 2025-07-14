@@ -42,19 +42,30 @@ const ToughToTalkPage = () => {
         position: "relative",
       }}
     >
-      {/* Main audio */}
       <audio
         ref={audioRef}
         src="https://pub-2b2e0f5de52048d98635f365e2e7ba66.r2.dev/ksc_exquistecorpseRecitalDraft_April16.2025.wav"
         preload="auto"
       />
 
-      {/* Exit audio */}
       <audio
         ref={exitAudioRef}
         src="https://pub-795433b8425843b2b6c357e0fd762384.r2.dev/00003.wav"
         preload="auto"
       />
+
+      <div>
+        <p
+          style={{
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            position: "absolute",
+          }}
+        >
+          insert graphic
+        </p>
+      </div>
 
       <div
         style={{

@@ -272,6 +272,22 @@ const HomePage: React.FC = () => {
             </div>
           </motion.nav>
         </div>
+        <div
+          style={{
+            position: "fixed",
+            bottom: "1.5rem",
+            left: "50%",
+            transform: "translateX(-50%)",
+            color: "black",
+            textAlign: "center",
+            letterSpacing: "1.5px",
+            fontSize: "0.5em",
+            fontFamily: "inherit",
+            zIndex: 1000,
+          }}
+        >
+          Copyright © 2025 Olivia Brown All rights reserved
+        </div>
       </>
     </div>
   );

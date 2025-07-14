@@ -158,6 +158,21 @@ const RoomExePage = () => {
           }}
         />
       </div>
+      <div
+        style={{
+          position: "fixed",
+          top: "93%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          color: "white",
+          textAlign: "center",
+          zIndex: 1000,
+          pointerEvents: "none",
+          opacity: 0.5,
+        }}
+      >
+        <p>created by dan-hà lê, phillip chao, kayla shomar-corbett</p>
+      </div>
     </div>
   );
 };

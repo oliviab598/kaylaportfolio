@@ -23,7 +23,6 @@ const SoMuchPage = () => {
       navigate("/home");
     }
   };
-
   return (
     <div
       ref={containerRef}
@@ -60,8 +59,27 @@ const SoMuchPage = () => {
           back
         </button>
       </div>
+
+      {/* Centered iframe */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "100vh",
+        }}
+      >
+        <iframe
+          src="https://bandcamp.com/EmbeddedPlayer/album=3414891515/track=2882178068/size=large/bgcol=ffffff/linkcol=f171a2/tracklist=false/"
+          seamless
+          style={{ border: "0", width: "350px", height: "470px" }}
+        >
+          <a href="https://roxyphantom.bandcamp.com/album/so-much">
+            so much by roxy phantom
+          </a>
+        </iframe>
+      </div>
     </div>
   );
 };
-
 export default SoMuchPage;
